@@ -24,7 +24,7 @@ public class SampleService implements SampleServiceInterface {
         String command = request.getQueryString();
         System.out.println("Path::"+command);
 
-        String response = ((CommandInterface)context.getBean(command)).execute();
+        String response = commandHandlersMap.get(command).execute();
         return response != null ? response : "No command found";
     }
 }
