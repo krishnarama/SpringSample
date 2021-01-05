@@ -1,0 +1,58 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: prod
+server:
+  port: 8080
+---
+spring:
+  profiles: dev
+server:
+  port: 8084
+---
+spring:
+  profiles: qa
+server:
+  port: 8081
+---
+spring:
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/:3306/
+    username: root
+    password: Siva@conviva123
+    initialization-mode: always
+  batch:
+    initialize-schema: ALWAYS
+    job:
+      enabled: false
+---
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        ping:
+          include:
+            - ping
+          show-details: always
+        liveness:
+          include:
+            - livenessState
+          show-details: always
+        readiness:
+          include:
+            - readinessState
+          show-details: always
+  endpoints:
+    web:
+      path-mapping:
+        health: probes
